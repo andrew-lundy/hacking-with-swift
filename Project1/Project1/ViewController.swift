@@ -15,7 +15,7 @@ class ViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Storm Viewer"
-        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareWithOthers))
         navigationController?.navigationBar.prefersLargeTitles = true
         
         let fm = FileManager.default
@@ -31,6 +31,14 @@ class ViewController: UITableViewController {
         tableView.reloadData()
     }
 
+    
+    @objc func shareWithOthers() {
+        let shareWithOthersTxt = "Share this app with others!"
+        
+        let vc = UIActivityViewController(activityItems: [shareWithOthersTxt], applicationActivities: [])
+        vc.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
+        present(vc, animated: true)
+    }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return pictures.count

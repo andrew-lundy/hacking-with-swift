@@ -45,6 +45,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(showScore))
         countries += ["estonia", "france", "germany", "ireland", "italy", "monaco", "nigeria", "poland", "russia", "spain", "uk", "us"]
         button1.layer.borderWidth = 1
         button1.layer.borderColor = UIColor.lightGray.cgColor
@@ -53,7 +54,15 @@ class ViewController: UIViewController {
         button3.layer.borderWidth = 1
         button3.layer.borderColor = UIColor.lightGray.cgColor
         askQuestion()
+    }
+    
+    
+    @objc func showScore() {
+        let newScore = score
         
+        let alert = UIAlertController(title: "Your Score", message: "Points: \(newScore)", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        present(alert, animated: true)
     }
 
     func resetGame(action: UIAlertAction! = nil) {
