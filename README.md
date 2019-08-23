@@ -8,14 +8,14 @@ My 39 projects from the Hacking with Swift Tutorials (4/39)
 # The main concepts covered and learned in each project:
 
 ## Project1:
- * Using FileManager to grab and list images
+ * Using <FileManager> to grab and list images
  * Designing a UI using Interface Builder
- * Loading images using UIImage
+ * Loading images using <UIImage>
  
 ## Project2:
- * Introduction to CALayer and using this to change certain aspects of the button layers
+ * Introduction to <CALayer> and using this to change certain aspects of the button layers
  * Accessing and using random integers
- * Creating and using IBOutlets and IBActions
+ * Creating and using <IBOutlets> and <IBActions>
 
 ## Project3 (a 'technique' lesson and modification of Project1):
  * Introduction to UIActivityViewController
