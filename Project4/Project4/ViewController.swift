@@ -41,8 +41,6 @@ class ViewController: UIViewController, WKNavigationDelegate {
         navigationController?.isToolbarHidden = false
         
         webView.addObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: .new, context: nil)
-        
-        
     }
 
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
@@ -52,7 +50,7 @@ class ViewController: UIViewController, WKNavigationDelegate {
     }
     
     @objc func openTapped() {
-        let ac = UIAlertController(title: "Open page...", message: nil, preferredStyle: .actionSheet)        
+        let ac = UIAlertController(title: "Open page...", message: nil, preferredStyle: .actionSheet)
         for website in websites {
             ac.addAction(UIAlertAction(title: website, style: .default, handler: openPage))
         }
@@ -81,8 +79,15 @@ class ViewController: UIViewController, WKNavigationDelegate {
                 }
             }
         }
+        alertOfBlockedSite()
         decisionHandler(.cancel)
     }
     
+    
+    func alertOfBlockedSite() {
+        let alert = UIAlertController(title: "Heads Up!", message: "This URL is blocked.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .cancel))
+        present(alert, animated: true)
+    }
 }
 
