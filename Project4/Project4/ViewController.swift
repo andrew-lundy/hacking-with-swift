@@ -16,6 +16,7 @@ class ViewController: UIViewController, WKNavigationDelegate {
     var progressView: UIProgressView!
     
     var websites = ["apple.com", "hackingwithswift.com"]
+    var currentSite: String = ""
     
     override func loadView() {
         webView = WKWebView()
@@ -25,7 +26,7 @@ class ViewController: UIViewController, WKNavigationDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let url = URL(string: "https://" + websites[0])!
+        let url = URL(string: "https://" + currentSite)!
         webView.load(URLRequest(url: url))
         webView.allowsBackForwardNavigationGestures = true
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Open", style: .plain, target: self, action: #selector(openTapped))
@@ -36,8 +37,10 @@ class ViewController: UIViewController, WKNavigationDelegate {
         
         let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let refresh = UIBarButtonItem(barButtonSystemItem: .refresh, target: webView, action: #selector(webView.reload))
+        let back = UIBarButtonItem(title: "<", style: .plain, target: webView, action: #selector(webView.goBack))
+        let forward = UIBarButtonItem(title: ">", style: .plain, target: webView, action: #selector(webView.goForward))
         
-        toolbarItems = [progressButton, spacer, refresh]
+        toolbarItems = [progressButton, spacer, back, forward, refresh]
         navigationController?.isToolbarHidden = false
         
         webView.addObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: .new, context: nil)
@@ -79,15 +82,7 @@ class ViewController: UIViewController, WKNavigationDelegate {
                 }
             }
         }
-        alertOfBlockedSite()
         decisionHandler(.cancel)
-    }
-    
-    
-    func alertOfBlockedSite() {
-        let alert = UIAlertController(title: "Heads Up!", message: "This URL is blocked.", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .cancel))
-        present(alert, animated: true)
     }
 }
 
