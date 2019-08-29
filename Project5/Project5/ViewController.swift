@@ -30,7 +30,7 @@ class ViewController: UITableViewController {
             allWords = ["silkworm"]
         }
         
-        startGame() 
+        startGame()
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -70,7 +70,7 @@ class ViewController: UITableViewController {
         if isPossible(word: lowerAnswer) {
             if isOriginal(word: lowerAnswer) {
                 if isReal(word: lowerAnswer) {
-                    usedWords.insert(answer, at: 0)
+                    usedWords.insert(lowerAnswer, at: 0)
                     
                     let indexPath = IndexPath(row: 0, section: 0)
                     tableView.insertRows(at: [indexPath], with: .automatic)
@@ -111,11 +111,12 @@ class ViewController: UITableViewController {
         let alert = UIAlertController(title: title, message: errorMessage, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default))
         present(alert, animated: true)
+       
     }
     
     func isReal(word: String) -> Bool {
         guard word.count > 3 else {
-            showErrorMessage(errorMessage: "This message is less than three letters - please try a different wor.", title: "Word Too Short!")
+            showErrorMessage(errorMessage: "This message is less than three letters - please try a different word.", title: "Word Too Short!")
             return false
         }
         
