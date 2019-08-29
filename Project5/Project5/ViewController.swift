@@ -87,6 +87,12 @@ class ViewController: UITableViewController {
         }
     }
     
+    func showErrorMessage(errorMessage: String, title: String) {
+        let alert = UIAlertController(title: title, message: errorMessage, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        present(alert, animated: true)
+        
+    }
 
     func isPossible(word: String) -> Bool {
         guard var tempWord = title?.lowercased() else { return false }
@@ -102,28 +108,32 @@ class ViewController: UITableViewController {
     }
     
     func isOriginal(word: String) -> Bool {
-        
         return !usedWords.contains(word)
     }
     
-    
-    func showErrorMessage(errorMessage: String, title: String) {
-        let alert = UIAlertController(title: title, message: errorMessage, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default))
-        present(alert, animated: true)
-       
-    }
-    
     func isReal(word: String) -> Bool {
-        guard word.count > 3 else {
+
+        
+        if word.count <= 3 {
             showErrorMessage(errorMessage: "This message is less than three letters - please try a different word.", title: "Word Too Short!")
             return false
         }
         
-        guard word != title else {
+        if word == title {
             showErrorMessage(errorMessage: "This is the same word as the start word. Please try a different word.", title: "Word Already Used")
             return false
         }
+        
+        //       Challenge 1 of this project can also be handled as such:
+        // guard word != title else {
+        // showErrorMessage(errorMessage: "This is the same word as the start word. Please try a different word.", title: "Word Already Used")
+        // return false
+        // }
+
+        // guard word.count > 3 else {
+        // showErrorMessage(errorMessage: "This message is less than three letters - please try a different word.", title: "Word Too Short!")
+        // return false
+        // }
         
         let checker = UITextChecker()
         let range = NSRange(location: 0, length: word.utf16.count)
