@@ -18,6 +18,7 @@ class ViewController: UITableViewController {
         super.viewDidLoad()
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(promptForAnswer))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(startGame))
         
         if let startWordsURL = Bundle.main.url(forResource: "start", withExtension: "txt") {
             if let startWords = try? String(contentsOf: startWordsURL) {
@@ -29,8 +30,7 @@ class ViewController: UITableViewController {
             allWords = ["silkworm"]
         }
         
-        startGame()
-        
+        startGame() 
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -44,7 +44,7 @@ class ViewController: UITableViewController {
     }
     
     
-    func startGame() {
+    @objc func startGame() {
         title = allWords.randomElement()
         usedWords.removeAll(keepingCapacity: true)
         tableView.reloadData()
@@ -67,9 +67,6 @@ class ViewController: UITableViewController {
     func submit(answer: String) {
         let lowerAnswer = answer.lowercased()
         
-        let errorTitle: String
-        let errorMessage: String
-        
         if isPossible(word: lowerAnswer) {
             if isOriginal(word: lowerAnswer) {
                 if isReal(word: lowerAnswer) {
@@ -79,22 +76,15 @@ class ViewController: UITableViewController {
                     tableView.insertRows(at: [indexPath], with: .automatic)
                     return
                 } else {
-                    errorTitle = "Word Not Recognized"
-                    errorMessage = "This word is not recognized. Please try again."
+                    showErrorMessage(errorMessage: "This word is not recognized. Please try again.", title: "Word Not Recognized")
                 }
             } else {
-                errorTitle = "Word Already Used"
-                errorMessage = "This word has already been used. Please try again."
+                showErrorMessage(errorMessage: "This word has already been used. Please try again.", title: "Word Already Used")
             }
         } else {
             guard let title = title?.lowercased() else { return }
-            errorTitle = "Word Not Possible"
-            errorMessage = "You can't spell that word from \(title)."
+            showErrorMessage(errorMessage: "You can't spell that word from \(title).", title: "Word Not Possible")
         }
-        let alert = UIAlertController(title: errorTitle, message: errorMessage, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default))
-        present(alert, animated: true)
-        
     }
     
 
@@ -112,23 +102,35 @@ class ViewController: UITableViewController {
     }
     
     func isOriginal(word: String) -> Bool {
+        
         return !usedWords.contains(word)
     }
     
     
+    func showErrorMessage(errorMessage: String, title: String) {
+        let alert = UIAlertController(title: title, message: errorMessage, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        present(alert, animated: true)
+    }
+    
     func isReal(word: String) -> Bool {
+        guard word.count > 3 else {
+            showErrorMessage(errorMessage: "This message is less than three letters - please try a different wor.", title: "Word Too Short!")
+            return false
+        }
+        
+        guard word != title else {
+            showErrorMessage(errorMessage: "This is the same word as the start word. Please try a different word.", title: "Word Already Used")
+            return false
+        }
+        
         let checker = UITextChecker()
         let range = NSRange(location: 0, length: word.utf16.count)
         let misspelledRange = checker.rangeOfMisspelledWord(in: word, range: range, startingAt: 0, wrap: false, language: "en")
         
+    
         // Return true if misspelledRange.location is equal to NSNotFound. In other words - if the word in spelled correctly.
         return misspelledRange.location == NSNotFound
     }
-
-    
-
-    
-    
-    
 }
 
