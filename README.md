@@ -1,5 +1,5 @@
 # hacking-with-swift
-My 39 projects from the Hacking with Swift Tutorials (4/39)
+My 39 projects from the Hacking with Swift Tutorials (5/39)
 
 
 39 different projects from the Hacking with Swift website. https://www.hackingwithswift.com/read/
@@ -31,3 +31,11 @@ My 39 projects from the Hacking with Swift Tutorials (4/39)
  * Create a `UIToolbar` and use `UIBarButtonItem` in order to display the page loading progress as well as a refresh button. 
  * Using `addObserver` on the webView's `estimatedProgress` in order to know when the progress of loading the web page has changed.
  * Using `observeValue` in order to tell the app what to do when the `estimatedProgress` key has a change in value. Resulting in updating our custom `progressView` with the new value.
+ 
+ ## Project5:
+ * A simple anagram game
+ * Reload `UITableView` data and insert rows into sections
+ * Add text fields to `UIAlertController` using `.addTextField()`
+ * Use of closures
+ * How to avoid _strong referencing_ when using closures
+ * Use of _trailing closure syntax_ in Swift
