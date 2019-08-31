@@ -43,4 +43,6 @@ My 39 projects from the Hacking with Swift Tutorials (5/39), challenges included
  ## Project6:
  * Auto Layout introduction
  * Visual Formatting Language (VFL) introduction
+ * Use of `addConstraints` with VFL
+ * Use of metrics and priorities with `constraints(withVisualFormat:)`
  * Creating programmatic constraints and anchors
