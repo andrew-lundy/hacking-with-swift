@@ -39,3 +39,10 @@ My 39 projects from the Hacking with Swift Tutorials (5/39), challenges included
  * Use of closures
  * How to avoid _strong referencing_ when using closures
  * Use of _trailing closure syntax_ in Swift
+
+ ## Project6:
+ * Auto Layout introduction
+ * Visual Formatting Language (VFL) introduction
+ * Use of `addConstraints` with VFL
+ * Use of metrics and priorities with `constraints(withVisualFormat:)`
+ * Creating programmatic constraints and anchors
