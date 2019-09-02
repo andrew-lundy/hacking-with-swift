@@ -1,5 +1,5 @@
 # hacking-with-swift
-My 39 projects from the Hacking with Swift Tutorials (5/39), challenges included!
+My 39 projects from the Hacking with Swift Tutorials (7/39), challenges included!
 
 
 39 different projects from the Hacking with Swift website. https://www.hackingwithswift.com/read/
@@ -46,3 +46,10 @@ My 39 projects from the Hacking with Swift Tutorials (5/39), challenges included
  * Use of `addConstraints` with VFL
  * Use of metrics and priorities with `constraints(withVisualFormat:)`
  * Creating programmatic constraints and anchors
+ 
+  ## Project7:
+ * Download JSON using Swift's `Data` type
+ * Use the `Codable` protocol to convert data into a Swift object
+ * Insert custom HTML into a `WebView` and use the custom data to render as dynamic elements
+ * Use the decoded JSON as the data for the `tableView` and `DetailViewController`
+ * Filter the petitions via a search feature and customize the `tableView` data based on whether a user has made a search or not
