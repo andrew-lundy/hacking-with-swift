@@ -11,13 +11,17 @@ import UIKit
 class ViewController: UITableViewController {
 
     var petitions = [Petition]()
+    var filteredPetitions = [Petition]()
+    var searchActive: Bool?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        
         let urlString: String
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(showCredits))
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(showCredits))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(filterPetitions))
+        title = "Whitehouse Petitions"
         
         if navigationController?.tabBarItem.tag == 0 {
             urlString = "https://www.hackingwithswift.com/samples/petitions-1.json"
@@ -32,9 +36,31 @@ class ViewController: UITableViewController {
             }
         }
         showError()
+    }
+    
+    @objc func filterPetitions() {
+        let ac = UIAlertController(title: "Search for Petitions", message: "Enter a string to filter the petitions", preferredStyle: .alert)
+        ac.addTextField()
+        ac.addAction(UIAlertAction(title: "Filter Petitions", style: .default, handler: { (action) in
+            let filteredSearch = ac.textFields?[0].text as! String
+            
+            self.filteredPetitions = self.petitions.filter { $0.title.contains(filteredSearch) }
+            
+//            for petition in self.petitions {
+//                if petition.title.contains(filteredSearch) {
+//                    self.filteredPetitions.append(petition)
+//                }
+//            }
+            self.searchActive = true
+            self.tableView.reloadData()
+        }))
         
-        
-     
+        ac.addAction(UIAlertAction(title: "Clear Filter", style: .cancel, handler: { (action) in
+            self.searchActive = false
+            self.tableView.reloadData()
+           
+        }))
+        present(ac, animated: true)
     }
 
     
@@ -60,12 +86,24 @@ class ViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return petitions.count
+        if searchActive == true {
+            return filteredPetitions.count
+        } else {
+            return petitions.count
+        }
+        
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        let petition = petitions[indexPath.row]
+        let petition: Petition
+        
+        if searchActive == true {
+             petition = filteredPetitions[indexPath.row]
+        } else {
+            petition = petitions[indexPath.row]
+        }
+        
         cell.textLabel?.text = petition.title
         cell.detailTextLabel?.text = String(petition.body)
         return cell
@@ -74,7 +112,6 @@ class ViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = DetailViewController()
         vc.detailItem = petitions[indexPath.row]
-        vc.title = petitions[indexPath.row].title
         navigationController?.pushViewController(vc, animated: true)
     }
     
