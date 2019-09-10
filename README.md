@@ -1,5 +1,5 @@
 # hacking-with-swift
-My 39 projects from the Hacking with Swift Tutorials (7/39), challenges included!
+My 39 projects from the Hacking with Swift Tutorials (8/39), challenges included!
 
 
 39 different projects from the Hacking with Swift website. https://www.hackingwithswift.com/read/
@@ -53,3 +53,10 @@ My 39 projects from the Hacking with Swift Tutorials (7/39), challenges included
  * Insert custom HTML into a `WebView` and use the custom data to render as dynamic elements
  * Use the decoded JSON as the data for the `tableView` and `DetailViewController`
  * Filter the petitions via a search feature and customize the `tableView` data based on whether a user has made a search or not
+
+## Project8:
+ * Create a `UIKit` based game built from programmatic UI elements
+ * Use of `addTarget()` on `UIButton` elements
+ * Basic use of Property Observers to update the state of the user interface
+ * Create the game answers and hints by using `components(separatedBy:)` on the game data which is located on the main bundle and accessed via `path(forResource:ofType:)`
+ * Check the users answer with the correct answer using `firstIndex(of:)` on the array of solutions
