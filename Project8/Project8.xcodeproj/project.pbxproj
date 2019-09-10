@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		269A7E002326D4140033336A /* level1.txt in Resources */ = {isa = PBXBuildFile; fileRef = 269A7DFF2326D4140033336A /* level1.txt */; };
+		269A7E02232712BF0033336A /* level2.txt in Resources */ = {isa = PBXBuildFile; fileRef = 269A7E01232712BF0033336A /* level2.txt */; };
 		26C0F8E4231DB25D0023A49E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C0F8E3231DB25D0023A49E /* AppDelegate.swift */; };
 		26C0F8E6231DB25D0023A49E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C0F8E5231DB25D0023A49E /* ViewController.swift */; };
 		26C0F8E9231DB25D0023A49E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 26C0F8E7231DB25D0023A49E /* Main.storyboard */; };
@@ -17,6 +18,7 @@
 
 /* Begin PBXFileReference section */
 		269A7DFF2326D4140033336A /* level1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = level1.txt; sourceTree = "<group>"; };
+		269A7E01232712BF0033336A /* level2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = level2.txt; sourceTree = "<group>"; };
 		26C0F8E0231DB25C0023A49E /* Project8.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Project8.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		26C0F8E3231DB25D0023A49E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		26C0F8E5231DB25D0023A49E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -63,6 +65,7 @@
 				26C0F8EC231DB25E0023A49E /* LaunchScreen.storyboard */,
 				26C0F8EF231DB25E0023A49E /* Info.plist */,
 				269A7DFF2326D4140033336A /* level1.txt */,
+				269A7E01232712BF0033336A /* level2.txt */,
 			);
 			path = Project8;
 			sourceTree = "<group>";
@@ -125,6 +128,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				269A7E02232712BF0033336A /* level2.txt in Resources */,
 				26C0F8EE231DB25E0023A49E /* LaunchScreen.storyboard in Resources */,
 				269A7E002326D4140033336A /* level1.txt in Resources */,
 				26C0F8EB231DB25E0023A49E /* Assets.xcassets in Resources */,

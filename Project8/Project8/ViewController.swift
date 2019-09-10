@@ -18,7 +18,11 @@ class ViewController: UIViewController {
     var activatedButtons = [UIButton]()
     var solutions = [String]()
     
-    var score = 0
+    var score = 0 {
+        didSet {
+            scoreLabel.text = "Score: \(score)"
+        }
+    }
     var level = 1
     
     override func viewDidLoad() {
@@ -27,12 +31,51 @@ class ViewController: UIViewController {
     }
     
     @objc func letterTapped(_ sender: UIButton) {
+        guard let buttonTitle = sender.titleLabel?.text else { return }
+        currentAnswer.text = currentAnswer.text?.appending(buttonTitle)
+        activatedButtons.append(sender)
+        sender.isHidden = true
     }
     
     @objc func submitTapped(_ sender: UIButton) {
+        guard let answerText = currentAnswer.text else { return }
+        
+        if let solutionPosition = solutions.firstIndex(of: answerText) {
+            activatedButtons.removeAll()
+            
+            var splitAnswers = answersLabel.text?.components(separatedBy: "\n")
+            splitAnswers?[solutionPosition] = answerText
+            answersLabel.text = splitAnswers?.joined(separator: "\n")
+            
+            currentAnswer.text = ""
+            score += 1
+            
+            if score % 7 == 0 {
+                let ac = UIAlertController(title: "Well done!", message: "Are you ready for the next level?", preferredStyle: .alert)
+                ac.addAction(UIAlertAction(title: "Let's go!", style: .default, handler: levelUp))
+                present(ac, animated: true)
+            }
+        }
     }
     
     @objc func clearTapped(_ sender: UIButton) {
+        currentAnswer.text = ""
+        
+        for btn in activatedButtons {
+            btn.isHidden = false
+        }
+        activatedButtons.removeAll()
+    }
+    
+    func levelUp(action: UIAlertAction) {
+        level += 1
+        solutions.removeAll(keepingCapacity: true)
+        
+        loadLevel()
+        
+        for btn in letterButtons {
+            btn.isHidden = false
+        }
     }
     
     func loadLevel() {
@@ -40,8 +83,8 @@ class ViewController: UIViewController {
         var solutionString = ""
         var letterBits = [String]()
         
-        if let levelFileURL = Bundle.main.url(forResource: "level\(level)", withExtension: "txt") {
-            if let levelContents = try? String(contentsOf: levelFileURL) {
+        if let levelFilePath = Bundle.main.path(forResource: "level\(level)", ofType: "txt") {
+            if let levelContents = try? String(contentsOfFile: levelFilePath) {
                 var lines = levelContents.components(separatedBy: "\n")
                 lines.shuffle()
                 
@@ -60,8 +103,6 @@ class ViewController: UIViewController {
                     letterBits += bits
                 }
             }
-        } else {
-            print("URL not found.")
         }
         
         cluesLabel.text = clueString.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -70,7 +111,7 @@ class ViewController: UIViewController {
         letterBits.shuffle()
         
         if letterBits.count == letterButtons.count {
-            for i in 0..<letterButtons.count {
+            for i in 0 ..< letterBits.count {
                 letterButtons[i].setTitle(letterBits[i], for: .normal)
             }
         }
@@ -91,6 +132,7 @@ class ViewController: UIViewController {
         cluesLabel.font = UIFont.systemFont(ofSize: 24)
         cluesLabel.text = "CLUES"
         cluesLabel.numberOfLines = 0
+     
         view.addSubview(cluesLabel)
         
         answersLabel = UILabel()
@@ -133,27 +175,28 @@ class ViewController: UIViewController {
         NSLayoutConstraint.activate([
             scoreLabel.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
             scoreLabel.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
+            scoreLabel.heightAnchor.constraint(equalToConstant: 50),
             cluesLabel.topAnchor.constraint(equalTo: scoreLabel.bottomAnchor),
             cluesLabel.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor, constant: 100),
             cluesLabel.widthAnchor.constraint(equalTo: view.layoutMarginsGuide.widthAnchor, multiplier: 0.6, constant: -100),
+            cluesLabel.heightAnchor.constraint(equalToConstant: 350),
             answersLabel.topAnchor.constraint(equalTo: scoreLabel.bottomAnchor),
             answersLabel.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor, constant: -100),
             answersLabel.widthAnchor.constraint(equalTo: view.layoutMarginsGuide.widthAnchor, multiplier: 0.4, constant: -100),
             answersLabel.heightAnchor.constraint(equalTo: cluesLabel.heightAnchor),
             currentAnswer.centerXAnchor.constraint(equalTo: view.layoutMarginsGuide.centerXAnchor),
             currentAnswer.widthAnchor.constraint(equalTo: view.layoutMarginsGuide.widthAnchor, multiplier: 0.5),
-            currentAnswer.topAnchor.constraint(equalTo: cluesLabel.bottomAnchor, constant: 20),
+            currentAnswer.topAnchor.constraint(equalTo: cluesLabel.bottomAnchor),
             submit.topAnchor.constraint(equalTo: currentAnswer.bottomAnchor),
             submit.centerXAnchor.constraint(equalTo: view.layoutMarginsGuide.centerXAnchor, constant: -100),
             submit.heightAnchor.constraint(equalToConstant: 44),
             clear.centerXAnchor.constraint(equalTo: view.layoutMarginsGuide.centerXAnchor, constant: 100),
             clear.centerYAnchor.constraint(equalTo: submit.centerYAnchor),
             clear.heightAnchor.constraint(equalToConstant: 44),
-            buttonsView.widthAnchor.constraint(equalToConstant: 750),
-            buttonsView.heightAnchor.constraint(equalToConstant: 320),
             buttonsView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            buttonsView.widthAnchor.constraint(equalToConstant: 750),
             buttonsView.topAnchor.constraint(equalTo: submit.bottomAnchor, constant: 20),
-            buttonsView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -80)
+            buttonsView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor)
         ])
         
         
