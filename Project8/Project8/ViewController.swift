@@ -52,14 +52,16 @@ class ViewController: UIViewController {
             
             currentAnswer.text = ""
             score += 1
-            correctAnswers += 1
             
+            // Challenge 3
+            correctAnswers += 1
             if correctAnswers == 7 {
                 let ac = UIAlertController(title: "Well done!", message: "Are you ready for the next level?", preferredStyle: .alert)
                 ac.addAction(UIAlertAction(title: "Let's go!", style: .default, handler: levelUp))
                 present(ac, animated: true)
             }
         } else {
+            // Challenge 2
             let ac = UIAlertController(title: "Heads up!", message: "Wrong answer, please try a different word!", preferredStyle: .alert)
                 ac.addAction(UIAlertAction(title: "Try again!", style: .default, handler: { (action) in
                     self.score -= 1
@@ -184,6 +186,7 @@ class ViewController: UIViewController {
         
         let buttonsView = UIView()
         buttonsView.translatesAutoresizingMaskIntoConstraints = false
+        // Challenge 1
         buttonsView.layer.borderColor = UIColor.lightGray.cgColor
         buttonsView.layer.borderWidth = 1
         view.addSubview(buttonsView)
