@@ -24,6 +24,8 @@ class ViewController: UIViewController {
         }
     }
     
+    var correctAnswers = 0
+    
     var level = 1
     
     override func viewDidLoad() {
@@ -50,14 +52,25 @@ class ViewController: UIViewController {
             
             currentAnswer.text = ""
             score += 1
+            correctAnswers += 1
             
-            if score % 7 == 0 {
+            if correctAnswers == 7 {
                 let ac = UIAlertController(title: "Well done!", message: "Are you ready for the next level?", preferredStyle: .alert)
                 ac.addAction(UIAlertAction(title: "Let's go!", style: .default, handler: levelUp))
                 present(ac, animated: true)
             }
+        } else {
+            let ac = UIAlertController(title: "Heads up!", message: "Wrong answer, please try a different word!", preferredStyle: .alert)
+                ac.addAction(UIAlertAction(title: "Try again!", style: .default, handler: { (action) in
+                    self.score -= 1
+                    self.currentAnswer.text = ""
+                    self.clearTapped(sender)
+                }))
+            present(ac, animated: true)
         }
     }
+    
+
     
     @objc func clearTapped(_ sender: UIButton) {
         currentAnswer.text = ""
@@ -70,6 +83,7 @@ class ViewController: UIViewController {
     
     func levelUp(action: UIAlertAction) {
         level += 1
+        correctAnswers = 0
         solutions.removeAll(keepingCapacity: true)
         
         loadLevel()
@@ -170,6 +184,8 @@ class ViewController: UIViewController {
         
         let buttonsView = UIView()
         buttonsView.translatesAutoresizingMaskIntoConstraints = false
+        buttonsView.layer.borderColor = UIColor.lightGray.cgColor
+        buttonsView.layer.borderWidth = 1
         view.addSubview(buttonsView)
         
 
@@ -197,7 +213,7 @@ class ViewController: UIViewController {
             buttonsView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             buttonsView.widthAnchor.constraint(equalToConstant: 750),
             buttonsView.topAnchor.constraint(equalTo: submit.bottomAnchor, constant: 20),
-            buttonsView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor)
+            buttonsView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -80)
         ])
         
         
@@ -217,6 +233,7 @@ class ViewController: UIViewController {
                 letterButton.frame = frame
                 
                 buttonsView.addSubview(letterButton)
+                
                 letterButtons.append(letterButton)
                 letterButton.addTarget(self, action: #selector(letterTapped), for: .touchUpInside)
             }
