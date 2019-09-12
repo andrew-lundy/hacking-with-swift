@@ -30,7 +30,8 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadLevel()
+        // Project 9 Challenge 2, 9/12/19
+        performSelector(inBackground: #selector(loadLevel), with: nil)
     }
     
     @objc func letterTapped(_ sender: UIButton) {
@@ -95,11 +96,13 @@ class ViewController: UIViewController {
         }
     }
     
-    func loadLevel() {
-        var clueString = ""
-        var solutionString = ""
-        var letterBits = [String]()
-        
+    
+    // Project 9 Challenge 2, 9/12/19
+    var clueString = ""
+    var solutionString = ""
+    var letterBits = [String]()
+    
+    @objc func loadLevel() {
         if let levelFilePath = Bundle.main.path(forResource: "level\(level)", ofType: "txt") {
             if let levelContents = try? String(contentsOfFile: levelFilePath) {
                 var lines = levelContents.components(separatedBy: "\n")
@@ -122,6 +125,10 @@ class ViewController: UIViewController {
             }
         }
         
+        performSelector(onMainThread: #selector(updateUserInterface), with: nil, waitUntilDone: false)
+    }
+    
+    @objc func updateUserInterface() {
         cluesLabel.text = clueString.trimmingCharacters(in: .whitespacesAndNewlines)
         answersLabel.text = solutionString.trimmingCharacters(in: .whitespacesAndNewlines)
         
