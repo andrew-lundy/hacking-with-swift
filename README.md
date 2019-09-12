@@ -1,5 +1,5 @@
 # hacking-with-swift
-My 39 projects from the Hacking with Swift Tutorials (8/39), challenges included!
+My 39 projects from the Hacking with Swift Tutorials (9/39), challenges included!
 
 
 39 different projects from the Hacking with Swift website. https://www.hackingwithswift.com/read/
