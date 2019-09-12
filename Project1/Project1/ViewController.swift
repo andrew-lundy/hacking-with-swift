@@ -18,6 +18,11 @@ class ViewController: UITableViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareWithOthers))
         navigationController?.navigationBar.prefersLargeTitles = true
         
+        performSelector(inBackground: #selector(loadImages), with: nil)
+    }
+
+    // Challenge 1 of Project 9, 9/12/2019
+    @objc func loadImages() {
         let fm = FileManager.default
         let path = Bundle.main.resourcePath!
         let items = try! fm.contentsOfDirectory(atPath: path)
@@ -28,9 +33,8 @@ class ViewController: UITableViewController {
             }
         }
         pictures.sort()
-        tableView.reloadData()
+        tableView?.performSelector(onMainThread: #selector(UITableView.reloadData), with: nil, waitUntilDone: false)
     }
-
     
     @objc func shareWithOthers() {
         let shareWithOthersTxt = "Share this app with others!"
