@@ -41,18 +41,18 @@ class ViewController: UITableViewController {
     @objc func filterPetitions() {
         let ac = UIAlertController(title: "Search for Petitions", message: "Enter a string to filter the petitions", preferredStyle: .alert)
         ac.addTextField()
-        ac.addAction(UIAlertAction(title: "Filter Petitions", style: .default, handler: { (action) in
+        ac.addAction(UIAlertAction(title: "Filter Petitions", style: .default, handler: { [weak self] (action) in
             let filteredSearch = ac.textFields?[0].text as! String
+            // Project 9 Challenge 3 - 9/12/2019
+            DispatchQueue.global(qos: .userInitiated).async {
+                self?.filteredPetitions = self?.petitions.filter { $0.title.contains(filteredSearch) } ?? [Petition]()
+            }
+        
+            self?.searchActive = true
+            DispatchQueue.main.async {
+                self?.tableView.reloadData()
+            }
             
-            self.filteredPetitions = self.petitions.filter { $0.title.contains(filteredSearch) }
-            
-//            for petition in self.petitions {
-//                if petition.title.contains(filteredSearch) {
-//                    self.filteredPetitions.append(petition)
-//                }
-//            }
-            self.searchActive = true
-            self.tableView.reloadData()
         }))
         
         ac.addAction(UIAlertAction(title: "Clear Filter", style: .cancel, handler: { (action) in
@@ -63,6 +63,9 @@ class ViewController: UITableViewController {
         present(ac, animated: true)
     }
 
+    @objc func filterSearch() {
+        
+    }
     
     @objc func showCredits() {
         let ac = UIAlertController(title: "API Info", message: "This API is provided by the 'We the People API of the Whitehouse'", preferredStyle: .alert)
