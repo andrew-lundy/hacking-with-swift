@@ -22,7 +22,7 @@ I am working on these projects and aim to have them done by the end of October, 
  * Creating and using `IBOutlets` and `IBActions`
 
 ## Project3 (a 'technique' lesson and modification of Project1):
- ### * A modification of Project 7
+ ### * A modification of Project 1
  * Introduction to `UIActivityViewController`
  * Using `UIActivityViewController` to share photos on social media or save it to the device
  * Accessing the `Info.plist` file and enabling 'Privacy - Photo Library Additions Usage Description' in order to provide the user with a way to give the app permission to save the photo to the device
