@@ -14,19 +14,20 @@ class ViewController: UICollectionViewController, UIImagePickerControllerDelegat
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        UIImagePickerController.isSourceTypeAvailable(.camera)
+        UIImagePickerController.availableMediaTypes(for: .camera)
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewPerson))
-
     }
 
     @objc func addNewPerson() {
         let picker = UIImagePickerController()
-        picker.allowsEditing = true
+        picker.sourceType = .camera
         picker.delegate = self
         present(picker, animated: true)
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        guard let image = info[.editedImage] as? UIImage else { return }
+        guard let image = info[.originalImage] as? UIImage else { return }
         
         let imageName = UUID().uuidString
         let imagePath = getDocumentsDirectory().appendingPathComponent(imageName)
@@ -34,7 +35,7 @@ class ViewController: UICollectionViewController, UIImagePickerControllerDelegat
         if let jpegData = image.jpegData(compressionQuality: 0.8) {
             try? jpegData.write(to: imagePath)
         }
-        
+         
         let person = Person(name: "Unknown", image: imageName)
         people.append(person)
         collectionView.reloadData()
@@ -86,8 +87,8 @@ class ViewController: UICollectionViewController, UIImagePickerControllerDelegat
         }))
         
         selectionAC.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { [weak self] alert in
-            self?.collectionView.deleteItems(at: [indexPath])
             self?.people.remove(at: indexPath.item)
+            self?.collectionView.deleteItems(at: [indexPath])
         }))
         present(selectionAC, animated: true)
     }
