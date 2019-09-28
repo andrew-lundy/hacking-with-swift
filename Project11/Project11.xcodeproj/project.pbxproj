@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		264E2163233FF0E700B0A873 /* FireParticles.sks in Resources */ = {isa = PBXBuildFile; fileRef = 264E2162233FF0E700B0A873 /* FireParticles.sks */; };
 		26F41AA8233E1C170014B2E3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26F41AA7233E1C170014B2E3 /* AppDelegate.swift */; };
 		26F41AAA233E1C170014B2E3 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 26F41AA9233E1C170014B2E3 /* GameScene.sks */; };
 		26F41AAE233E1C170014B2E3 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26F41AAD233E1C170014B2E3 /* GameScene.swift */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		264E2162233FF0E700B0A873 /* FireParticles.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = FireParticles.sks; sourceTree = "<group>"; };
 		26F41AA4233E1C170014B2E3 /* Project11.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Project11.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		26F41AA7233E1C170014B2E3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		26F41AA9233E1C170014B2E3 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -59,9 +61,10 @@
 			isa = PBXGroup;
 			children = (
 				26F41AA7233E1C170014B2E3 /* AppDelegate.swift */,
-				26F41AA9233E1C170014B2E3 /* GameScene.sks */,
 				26F41AAD233E1C170014B2E3 /* GameScene.swift */,
 				26F41AAF233E1C170014B2E3 /* GameViewController.swift */,
+				26F41AA9233E1C170014B2E3 /* GameScene.sks */,
+				264E2162233FF0E700B0A873 /* FireParticles.sks */,
 				26F41AB1233E1C170014B2E3 /* Main.storyboard */,
 				26F41AB4233E1C190014B2E3 /* Assets.xcassets */,
 				26F41AB6233E1C190014B2E3 /* LaunchScreen.storyboard */,
@@ -130,6 +133,7 @@
 			files = (
 				26F41AB3233E1C170014B2E3 /* Main.storyboard in Resources */,
 				26F41AAA233E1C170014B2E3 /* GameScene.sks in Resources */,
+				264E2163233FF0E700B0A873 /* FireParticles.sks in Resources */,
 				26F41AB5233E1C190014B2E3 /* Assets.xcassets in Resources */,
 				26F41AB8233E1C190014B2E3 /* LaunchScreen.storyboard in Resources */,
 			);
