@@ -10,7 +10,7 @@ import UIKit
 import MapKit
 import WebKit
 
-class ViewController: UIViewController, MKMapViewDelegate, WKNavigationDelegate {
+class ViewController: UIViewController, MKMapViewDelegate {
 
     @IBOutlet weak var mapView: MKMapView!
     
