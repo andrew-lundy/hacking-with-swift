@@ -137,8 +137,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         if !isGameOver {
             score += 1
+        } else {
+            // Challenge 3
+            gameTimer?.invalidate()
         }
-               
     }
     
     
@@ -150,6 +152,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         player.removeFromParent()
         isGameOver = true
+        
+        
+    
     }
     
 }
