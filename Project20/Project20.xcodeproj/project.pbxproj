@@ -15,6 +15,8 @@
 		261F0277237CD1FD00A02C08 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 261F0275237CD1FD00A02C08 /* Main.storyboard */; };
 		261F0279237CD1FF00A02C08 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 261F0278237CD1FF00A02C08 /* Assets.xcassets */; };
 		261F027C237CD1FF00A02C08 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 261F027A237CD1FF00A02C08 /* LaunchScreen.storyboard */; };
+		261F0285237CFBAD00A02C08 /* explode.sks in Resources */ = {isa = PBXBuildFile; fileRef = 261F0283237CFBAD00A02C08 /* explode.sks */; };
+		261F0286237CFBAD00A02C08 /* fuse.sks in Resources */ = {isa = PBXBuildFile; fileRef = 261F0284237CFBAD00A02C08 /* fuse.sks */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +30,8 @@
 		261F0278237CD1FF00A02C08 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		261F027B237CD1FF00A02C08 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		261F027D237CD1FF00A02C08 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		261F0283237CFBAD00A02C08 /* explode.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = explode.sks; sourceTree = "<group>"; };
+		261F0284237CFBAD00A02C08 /* fuse.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = fuse.sks; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +67,8 @@
 				261F026B237CD1FD00A02C08 /* AppDelegate.swift */,
 				261F026D237CD1FD00A02C08 /* GameScene.sks */,
 				261F026F237CD1FD00A02C08 /* Actions.sks */,
+				261F0283237CFBAD00A02C08 /* explode.sks */,
+				261F0284237CFBAD00A02C08 /* fuse.sks */,
 				261F0271237CD1FD00A02C08 /* GameScene.swift */,
 				261F0273237CD1FD00A02C08 /* GameViewController.swift */,
 				261F0275237CD1FD00A02C08 /* Main.storyboard */,
@@ -136,6 +142,8 @@
 				261F0279237CD1FF00A02C08 /* Assets.xcassets in Resources */,
 				261F027C237CD1FF00A02C08 /* LaunchScreen.storyboard in Resources */,
 				261F0270237CD1FD00A02C08 /* Actions.sks in Resources */,
+				261F0286237CFBAD00A02C08 /* fuse.sks in Resources */,
+				261F0285237CFBAD00A02C08 /* explode.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
