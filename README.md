@@ -1,5 +1,5 @@
 # hacking-with-swift
-My 39 projects from the Hacking with Swift Tutorials (9/39), challenges included! 
+My 39 projects from the Hacking with Swift Tutorials (20/39). 
 
 I am working on these projects and aim to have them done by the end of October, 2019.
 
