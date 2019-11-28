@@ -14,10 +14,6 @@
 		26FFBCAD238D6FC00037CDC4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 26FFBCAB238D6FC00037CDC4 /* Main.storyboard */; };
 		26FFBCAF238D6FC30037CDC4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 26FFBCAE238D6FC30037CDC4 /* Assets.xcassets */; };
 		26FFBCB2238D6FC30037CDC4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 26FFBCB0238D6FC30037CDC4 /* LaunchScreen.storyboard */; };
-		26FFBCBC238E01C10037CDC4 /* swoosh1.caf in Resources */ = {isa = PBXBuildFile; fileRef = 26FFBCBA238E00060037CDC4 /* swoosh1.caf */; };
-		26FFBCBD238E01C30037CDC4 /* swoosh2.caf in Resources */ = {isa = PBXBuildFile; fileRef = 26FFBCB9238E00050037CDC4 /* swoosh2.caf */; };
-		26FFBCBE238E01C50037CDC4 /* swoosh3.caf in Resources */ = {isa = PBXBuildFile; fileRef = 26FFBCBB238E00060037CDC4 /* swoosh3.caf */; };
-		26FFBCC0238E187B0037CDC4 /* launch.caf in Resources */ = {isa = PBXBuildFile; fileRef = 26FFBCBF238E18770037CDC4 /* launch.caf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,10 +26,12 @@
 		26FFBCAE238D6FC30037CDC4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		26FFBCB1238D6FC30037CDC4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		26FFBCB3238D6FC30037CDC4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		26FFBCB9238E00050037CDC4 /* swoosh2.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = swoosh2.caf; sourceTree = "<group>"; };
-		26FFBCBA238E00060037CDC4 /* swoosh1.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = swoosh1.caf; sourceTree = "<group>"; };
-		26FFBCBB238E00060037CDC4 /* swoosh3.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = swoosh3.caf; sourceTree = "<group>"; };
-		26FFBCBF238E18770037CDC4 /* launch.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = launch.caf; sourceTree = "<group>"; };
+		26FFBCC1238F73F60037CDC4 /* explosion.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = explosion.caf; sourceTree = "<group>"; };
+		26FFBCC2238F73F60037CDC4 /* sliceBombFuse.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = sliceBombFuse.caf; sourceTree = "<group>"; };
+		26FFBCC3238F73F70037CDC4 /* swoosh1.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = swoosh1.caf; sourceTree = "<group>"; };
+		26FFBCC4238F73F70037CDC4 /* launch.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = launch.caf; sourceTree = "<group>"; };
+		26FFBCC5238F73F70037CDC4 /* swoosh2.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = swoosh2.caf; sourceTree = "<group>"; };
+		26FFBCC6238F73F70037CDC4 /* swoosh3.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = swoosh3.caf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,10 +72,12 @@
 				26FFBCAE238D6FC30037CDC4 /* Assets.xcassets */,
 				26FFBCB0238D6FC30037CDC4 /* LaunchScreen.storyboard */,
 				26FFBCB3238D6FC30037CDC4 /* Info.plist */,
-				26FFBCBA238E00060037CDC4 /* swoosh1.caf */,
-				26FFBCB9238E00050037CDC4 /* swoosh2.caf */,
-				26FFBCBB238E00060037CDC4 /* swoosh3.caf */,
-				26FFBCBF238E18770037CDC4 /* launch.caf */,
+				26FFBCC1238F73F60037CDC4 /* explosion.caf */,
+				26FFBCC4238F73F70037CDC4 /* launch.caf */,
+				26FFBCC2238F73F60037CDC4 /* sliceBombFuse.caf */,
+				26FFBCC3238F73F70037CDC4 /* swoosh1.caf */,
+				26FFBCC5238F73F70037CDC4 /* swoosh2.caf */,
+				26FFBCC6238F73F70037CDC4 /* swoosh3.caf */,
 			);
 			path = Project23;
 			sourceTree = "<group>";
@@ -141,13 +141,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				26FFBCAD238D6FC00037CDC4 /* Main.storyboard in Resources */,
-				26FFBCBC238E01C10037CDC4 /* swoosh1.caf in Resources */,
-				26FFBCBD238E01C30037CDC4 /* swoosh2.caf in Resources */,
 				26FFBCA4238D6FBF0037CDC4 /* GameScene.sks in Resources */,
 				26FFBCAF238D6FC30037CDC4 /* Assets.xcassets in Resources */,
-				26FFBCC0238E187B0037CDC4 /* launch.caf in Resources */,
 				26FFBCB2238D6FC30037CDC4 /* LaunchScreen.storyboard in Resources */,
-				26FFBCBE238E01C50037CDC4 /* swoosh3.caf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
