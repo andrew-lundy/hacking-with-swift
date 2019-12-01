@@ -46,6 +46,8 @@ class GameScene: SKScene {
     var chainDelay = 3.0
     var nextSequenceQueued = true
     
+    var isGameEnded = false
+    
     override func didMove(to view: SKView) {
         let background = SKSpriteNode(imageNamed: "sliceBackground")
         background.position = CGPoint(x: 512, y: 384)
@@ -148,11 +150,24 @@ class GameScene: SKScene {
                 emitter.position = CGPoint(x: 76, y: 64)
                 enemy.addChild(emitter)
             }
+        } else if enemyType == 3 {
+            enemy = SKSpriteNode(imageNamed: "moose")
+            enemy.yScale = 0.5
+            enemy.xScale = 0.5
+            run(SKAction.playSoundFileNamed("launch.caff", waitForCompletion: false))
+            enemy.name = "fastEnemy"
+            enemy.speed = 1.5
+            print("FAST ENEMY ON SCREEN")
         } else {
             enemy = SKSpriteNode(imageNamed: "penguin")
             run(SKAction.playSoundFileNamed("launch.caff", waitForCompletion: false))
             enemy.name = "enemy"
         }
+        
+        let minVelocity = 3
+        let lowerMidVelocity = 5
+        let higherMidVelocity = 8
+        let maxVelocity = 15
         
         // position code goes here
         let randomPosition = CGPoint(x: Int.random(in: 64...960), y: -128)
@@ -162,15 +177,15 @@ class GameScene: SKScene {
         let randomXVelocity: Int
         
         if randomPosition.x < 256 {
-            randomXVelocity = Int.random(in: 8...15)
+            randomXVelocity = Int.random(in: higherMidVelocity...maxVelocity)
         } else if randomPosition.x < 512 {
-            randomXVelocity = Int.random(in: 3...5)
+            randomXVelocity = Int.random(in: minVelocity...lowerMidVelocity)
         } else if randomPosition.x < 768 {
-            randomXVelocity = -Int.random(in: 3...5)
+            randomXVelocity = -Int.random(in: minVelocity...lowerMidVelocity)
         } else {
-            randomXVelocity = -Int.random(in: 8...15)
+            randomXVelocity = -Int.random(in: higherMidVelocity...maxVelocity)
         }
-        
+    
         let randomYVelocity = Int.random(in: 24...32)
         
         enemy.physicsBody = SKPhysicsBody(circleOfRadius: 64)
@@ -185,6 +200,11 @@ class GameScene: SKScene {
     
     
     func tossEnemies() {
+        
+        if isGameEnded {
+            return
+        }
+        
         popupTime *= 0.991
         chainDelay *= 0.99
         physicsWorld.speed *= 1.02
@@ -250,12 +270,100 @@ class GameScene: SKScene {
         
         activeSliceBG.alpha = 1
         activeSliceFG.alpha = 1
+
+    }
+    
+    func playSwooshSound() {
+        isSwooshSoundActive = true
         
+        let randomNumber = Int.random(in: 1...3)
+        let soundName = "swoosh\(randomNumber).caf"
         
+        let swooshSound = SKAction.playSoundFileNamed(soundName, waitForCompletion: true)
+        run(swooshSound) { [weak self] in
+            self?.isSwooshSoundActive = false
+        }
+    }
+    
+    func redrawActiveSlice() {
+        if activeSlicePoints.count < 2 {
+            activeSliceBG.path = nil
+            activeSliceFG.path = nil
+            return
+        }
+        
+        if activeSlicePoints.count > 12 {
+            activeSlicePoints.removeFirst(activeSlicePoints.count - 12)
+        }
+        
+        let path = UIBezierPath()
+        path.move(to: activeSlicePoints[0])
+        
+        for i in 1..<activeSlicePoints.count {
+            path.addLine(to: activeSlicePoints[i])
+        }
+        
+        activeSliceBG.path = path.cgPath
+        activeSliceFG.path = path.cgPath
         
     }
     
+    func endGame(triggeredByBomb: Bool) {
+        if isGameEnded {
+            return
+        }
+        
+        isGameEnded = true
+        physicsWorld.speed = 0
+        isUserInteractionEnabled = false
+        
+        let gameOver = SKSpriteNode(imageNamed: "GameOver")
+        gameOver.position = CGPoint(x: frame.midX, y: frame.midY)
+        gameOver.blendMode = .replace
+        addChild(gameOver)
+        
+        bombSoundEffect?.stop()
+        bombSoundEffect = nil
+        
+        
+        if triggeredByBomb {
+            livesImages[0].texture = SKTexture(imageNamed: "sliceLife")
+            livesImages[1].texture = SKTexture(imageNamed: "sliceLifeGone")
+            livesImages[2].texture = SKTexture(imageNamed: "sliceLifeGone")
+        }
+    }
+    
+    
+    func subtractLife() {
+        lives -= 1
+        
+        run(SKAction.playSoundFileNamed("wrong.caf", waitForCompletion: false))
+        
+        var life: SKSpriteNode
+        
+        if lives == 2 {
+            life = livesImages[0]
+        } else if lives == 1 {
+            life = livesImages[1]
+        } else {
+            life = livesImages[2]
+            endGame(triggeredByBomb: false)
+        }
+        
+        life.texture = SKTexture(imageNamed: "sliceLifeGone")
+        
+        life.xScale = 1.3
+        life.yScale = 1.3
+        life.run(SKAction.scale(to: 1, duration: 0.1))
+    }
+    
+    
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+        if isGameEnded {
+            return
+        }
+        
         if !isSwooshSoundActive {
             playSwooshSound()
         }
@@ -294,6 +402,30 @@ class GameScene: SKScene {
                 
                 run(SKAction.playSoundFileNamed("whack.caf", waitForCompletion: false))
                 
+            } else if node.name == "fastEnemy" {
+                if let emitter = SKEmitterNode(fileNamed: "sliceHitEnemy") {
+                    emitter.position = node.position
+                    addChild(emitter)
+                }
+                
+                node.name = ""
+                node.physicsBody?.isDynamic = false
+                
+                let scaleOut = SKAction.scale(by: 0.001, duration: 0.2)
+                let fadeOut = SKAction.fadeOut(withDuration: 0.2)
+                let group = SKAction.group([scaleOut, fadeOut])
+                
+                let sequence = SKAction.sequence([group, .removeFromParent()])
+                node.run(sequence)
+                
+                score += 2
+                
+                if let index = activeEnemies.firstIndex(of: node) {
+                    activeEnemies.remove(at: index)
+                }
+                
+                run(SKAction.playSoundFileNamed("whack.caf", waitForCompletion: false))
+                
             } else if node.name == "bomb" {
                 guard let bombContainer = node.parent as? SKSpriteNode else { continue }
                 
@@ -317,46 +449,9 @@ class GameScene: SKScene {
                 }
                 
                 run(SKAction.playSoundFileNamed("explosion.caf", waitForCompletion: false))
-//                endGame(triggeredByBomb: true)
-
+                endGame(triggeredByBomb: true)
             }
         }
-    }
-    
-    
-    func playSwooshSound() {
-        isSwooshSoundActive = true
-        
-        let randomNumber = Int.random(in: 1...3)
-        let soundName = "swoosh\(randomNumber).caf"
-        
-        let swooshSound = SKAction.playSoundFileNamed(soundName, waitForCompletion: true)
-        run(swooshSound) { [weak self] in
-            self?.isSwooshSoundActive = false
-        }
-    }
-    
-    func redrawActiveSlice() {
-        if activeSlicePoints.count < 2 {
-            activeSliceBG.path = nil
-            activeSliceFG.path = nil
-            return
-        }
-        
-        if activeSlicePoints.count > 12 {
-            activeSlicePoints.removeFirst(activeSlicePoints.count - 12)
-        }
-        
-        let path = UIBezierPath()
-        path.move(to: activeSlicePoints[0])
-        
-        for i in 1..<activeSlicePoints.count {
-            path.addLine(to: activeSlicePoints[i])
-        }
-        
-        activeSliceBG.path = path.cgPath
-        activeSliceFG.path = path.cgPath
-        
     }
     
     
@@ -373,7 +468,7 @@ class GameScene: SKScene {
                     
                     if node.name == "enemy" {
                         node.name = ""
-                        // subtractLife()
+                         subtractLife()
                         
                         node.removeFromParent()
                         activeEnemies.remove(at: index)
