@@ -31,8 +31,9 @@ class ViewController: UIViewController {
         }
         
         let attributedString = NSAttributedString(string: string, attributes: attributes)
-        print(attributedString)
         
+        
+        print(password.withPrefix("car"))
         
     }
 }
@@ -49,6 +50,12 @@ extension String {
     func deletingSuffix(_ suffix: String) -> String {
         guard self.hasSuffix(suffix) else { return self }
         return String(self.dropLast(suffix.count))
+    }
+    
+    // Challenge 1
+    func withPrefix(_ prefix: String) -> String {
+        guard self.hasPrefix(prefix) else { return String(prefix + self) }
+        return self
     }
 }
 
