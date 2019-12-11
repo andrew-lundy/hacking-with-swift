@@ -34,7 +34,10 @@ class ViewController: UIViewController {
         
         
         print(password.withPrefix("car"))
+        print(String.isNumeric(password))
         
+        let testString = "this\nis\na\ntest"
+        print(testString.lines) // ["this", "is", "a", "test"]
     }
 }
 
@@ -56,6 +59,17 @@ extension String {
     func withPrefix(_ prefix: String) -> String {
         guard self.hasPrefix(prefix) else { return String(prefix + self) }
         return self
+    }
+    
+    // Challenge 2
+    func isNumeric(string: String) -> Bool {
+        return Double(string) !=  nil
+    }
+    
+    // Challenge 3
+    var lines: [String] {
+        guard !self.isEmpty else { return [""] }
+        return self.components(separatedBy: "\n")
     }
 }
 
