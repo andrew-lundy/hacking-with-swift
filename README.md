@@ -1,8 +1,8 @@
 # hacking-with-swift
-My 39 projects from the Hacking with Swift Tutorials (26/39). 
+My work on some of the projects from the Hacking with Swift Tutorials (26/39). 
 
 
-39 different projects from the Hacking with Swift website. https://www.hackingwithswift.com/read/
+26 different projects from the Hacking with Swift website. https://www.hackingwithswift.com/read/
 
 
 # The main concepts covered and learned in each project:
