@@ -80,11 +80,11 @@ My work on some of the projects from the Hacking with Swift Tutorials (26/39).
   * Using `performSelector(inBackground)` as well as `performSelector(onMainThread)` to again, run code on the main thread as well as the background threads
 
 ## Project10:
- ### * An intro into UICollectionView and the photo library.
+ ### * An intro into `UICollectionView` and the photo library.
   * Use `UIImagePickerController`, `UUID` and custom classes to create a basic "pick a photo and give it a name" application. 
  
  ## Project11:
-  ### * Use SpriteKit to create a game similar to 'Plinko'. 
+  ### * Use `SpriteKit` to create a game similar to 'Plinko'. 
    * Introduced to SpriteKit and the tools used to create a 2D game for iOS.
    * Understand the different anchor points in `UIKit` vs `SpriteKit`.
    * Use of different `SKPhysicBody` types - `circleOfRadius` and `rectangleOf`.
@@ -95,4 +95,13 @@ My work on some of the projects from the Hacking with Swift Tutorials (26/39).
    * Use `SKLabelNode` to dynamically update the score.
    * Introduced to `SKEmitterNode` and used it create special effects - such as fire when the ball explodes. 
   
- 
+ ## Project12:
+  ### * Save persistent data and access it using `UserDefaults`. 
+   * Introduced to `UserDefaults` and used the `set` and `object(forKey:)` methods to save and retrieve data from the defaults database.
+   
+ ## Project13:
+  ### * Use Core Image filters and a UISlider to create a simple photo manipulation app. 
+   * Use `UIImagePickerController` to import a photo that will be manipulated.
+   * Implement `CIContext` and `CIFilter` in order to process images using filters and a `UISlider` to change the intensity of those filters.
+   * Use `UIImageWriteToSavedPhotosAlbum` to save the manipulated photo to the photo album.
+   
