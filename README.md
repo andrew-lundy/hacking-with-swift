@@ -105,3 +105,7 @@ My work on some of the projects from the Hacking with Swift Tutorials (26/39).
    * Implement `CIContext` and `CIFilter` in order to process images using filters and a `UISlider` to change the intensity of those filters.
    * Use `UIImageWriteToSavedPhotosAlbum` to save the manipulated photo to the photo album.
    
+ ## Project14:
+  ### * Another `SpriteKit` game! This time, I integrated `SKCropNode` and GCD to create a 'whack-a-mole' type game. 
+   * Introduced to `SKCropeNode` and used this to host multiple nodes and produce the effect of a child node going down into a parent node by integrating `SKAction` to actually show and hide the penguins.
+   * Introduced to the power of `SKAction.sequence` in order to run a sequence of actions on a node. In this case - we implemented a delay, hid the penguin, and then set its `isVisible` property to `false`. 
