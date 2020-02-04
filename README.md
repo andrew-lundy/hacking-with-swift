@@ -78,3 +78,21 @@ My work on some of the projects from the Hacking with Swift Tutorials (26/39).
    * There is also the `default` queue which is a good general-purpose choice as it executes its tasks with a priority between `user-initiated` and `utility`.
   * Using `DispatchQueue` to run code on the main thread as well as the background threads
   * Using `performSelector(inBackground)` as well as `performSelector(onMainThread)` to again, run code on the main thread as well as the background threads
+
+## Project10:
+ ### * An intro into UICollectionView and the photo library.
+  * Use `UIImagePickerController`, `UUID` and custom classes to create a basic "pick a photo and give it a name" application. 
+ 
+ ## Project11:
+  ### * Use SpriteKit to create a game similar to 'Plinko'. 
+   * Introduced to SpriteKit and the tools used to create a 2D game for iOS.
+   * Understand the different anchor points in `UIKit` vs `SpriteKit`.
+   * Use of different `SKPhysicBody` types - `circleOfRadius` and `rectangleOf`.
+   * Utilize `UITouch` to track and respond to the touch events within the game.
+   * Introduced to `SKAction` and used this to add animation to some of the nodes. 
+   * Use `SKPhysicsContactDelegate`in order to respond to physics bodies that collide.
+   * Use `contactTestBitMask ` and `collisionBitMask` in order to track which nodes produce intersection notifications as well as which nodes can collide with certain types of physics bodies.
+   * Use `SKLabelNode` to dynamically update the score.
+   * Introduced to `SKEmitterNode` and used it create special effects - such as fire when the ball explodes. 
+  
+ 
