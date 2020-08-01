@@ -1,8 +1,8 @@
 # hacking-with-swift
-My work on some of the projects from the Hacking with Swift Tutorials (26/39). 
+My work on some of the projects from the Hacking with Swift Tutorials (28/39). 
 
 
-26 different projects from the Hacking with Swift website. https://www.hackingwithswift.com/read/
+28 different projects from the Hacking with Swift website. https://www.hackingwithswift.com/read/
 
 
 # The main concepts covered and learned in each project:
@@ -108,4 +108,10 @@ My work on some of the projects from the Hacking with Swift Tutorials (26/39).
  ## Project14:
   ### * Another `SpriteKit` game! This time, I integrated `SKCropNode` and GCD to create a 'whack-a-mole' type game. 
    * Introduced to `SKCropeNode` and used this to host multiple nodes and produce the effect of a child node going down into a parent node by integrating `SKAction` to actually show and hide the penguins.
-   * Introduced to the power of `SKAction.sequence` in order to run a sequence of actions on a node. In this case - we implemented a delay, hid the penguin, and then set its `isVisible` property to `false`. 
+   * Introduced to the power of `SKAction.sequence` in order to run a sequence of actions on a node. In this case - we implemented a delay, hid the penguin, and then set its `isVisible` property to `false`.
+   
+ ## Project14:
+  ### * Use `LocalAuthentication` and the iOS Keychain to create a private text editor.
+  * Introduced to the `LocalAuthentication` framework and how to check for and use biometrics.
+  * Used the `Keychain Wrapper` framework to write and read data to and from the iOS Keychain. The framework can be found here: https://github.com/jrendel/SwiftKeychainWrapper.
+   
