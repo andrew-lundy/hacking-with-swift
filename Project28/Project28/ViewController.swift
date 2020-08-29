@@ -23,8 +23,13 @@ class ViewController: UIViewController {
         
         
         title = "Nothing to see here"
+     
+        let doneBttn = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(saveSecretMessage))
+        
+        navigationItem.rightBarButtonItem = doneBttn
         
     }
+
     
     func unlockSecretMessage() {
         secret.isHidden = false
