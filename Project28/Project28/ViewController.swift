@@ -12,6 +12,8 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var secret: UITextView!
     
+    private var doneBttn: UIBarButtonItem!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -21,19 +23,30 @@ class ViewController: UIViewController {
         notificationCenter.addObserver(self, selector: #selector(adjustForKeyboard(notification:)), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
         notificationCenter.addObserver(self, selector: #selector(saveSecretMessage), name: UIApplication.willResignActiveNotification, object: nil)
         
-        
         title = "Nothing to see here"
-     
-        let doneBttn = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(saveSecretMessage))
         
+        doneBttn = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(saveSecretMessage))
         navigationItem.rightBarButtonItem = doneBttn
+        toggleDoneButton()
         
     }
 
+    func toggleDoneButton() {
+        if secret.isHidden {
+            doneBttn.isEnabled = false
+            doneBttn.setTitleTextAttributes([NSAttributedString.Key.foregroundColor : UIColor.clear], for: .disabled)
+        } else {
+            doneBttn.isEnabled = true
+            doneBttn.setTitleTextAttributes([NSAttributedString.Key.foregroundColor : UIColor.systemBlue], for: .normal)
+        }
+    }
+    
     
     func unlockSecretMessage() {
         secret.isHidden = false
         title = "Secret stuff!"
+
+        toggleDoneButton()
         
         if let text = KeychainWrapper.standard.string(forKey: "SecretMessage") {
             secret.text = text
@@ -69,10 +82,11 @@ class ViewController: UIViewController {
     
     @objc func saveSecretMessage() {
         guard secret.isHidden == false else { return }
-        
+                
         KeychainWrapper.standard.set(secret.text, forKey: "SecretMessage")
         secret.resignFirstResponder()
         secret.isHidden = true
+        toggleDoneButton()
         title = "Nothing to see here"
     }
     
