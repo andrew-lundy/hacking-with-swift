@@ -20,24 +20,59 @@ class GameViewController: UIViewController {
     @IBOutlet weak var velocityLabel: UILabel!
     @IBOutlet weak var launchButton: UIButton!
     @IBOutlet weak var playerNumber: UILabel!
+    @IBOutlet weak var angleTitle: UILabel!
+    @IBOutlet weak var velocityTitle: UILabel!
+    
     
     // MARK: - Methods
     @IBAction func angleChanged(_ sender: Any) {
-        
+        angleLabel.text = "\(Int(angleSlider.value))°"
     }
     
     @IBAction func velocityChanged(_ sender: Any) {
-        
+        velocityLabel.text = "\(velocitySlider.value)"
     }
     
     @IBAction func launch(_ sender: Any) {
+        angleSlider.isHidden = true
+        angleLabel.isHidden = true
+        angleTitle.isHidden = true
         
+        velocitySlider.isHidden = true
+        velocityLabel.isHidden = true
+        velocityTitle.isHidden = true
+        
+        
+        launchButton.isHidden = true
+        
+        currentGame.launch(angle: Int(angleSlider.value), velocity: Int(velocitySlider.value))
     }
     
+    func activatePlayer(number: Int) {
+        if number == 1 {
+            playerNumber.text = "<<< PLAYER ONE"
+        } else {
+            playerNumber.text = "PLAYER TWO >>>"
+        }
+        
+        angleSlider.isHidden = false
+        angleLabel.isHidden = false
+        angleTitle.isHidden = false
+        
+        velocitySlider.isHidden = false
+        velocityLabel.isHidden = false
+        velocityTitle.isHidden = false
+        
+        launchButton.isHidden = false
+        
+    }
     
     // MARK: - Overrides
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        angleChanged(angleSlider)
+        velocityChanged(velocitySlider)
         
         if let view = self.view as! SKView? {
             // Load the SKScene from 'GameScene.sks'
