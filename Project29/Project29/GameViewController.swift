@@ -13,6 +13,8 @@ class GameViewController: UIViewController {
     
     // MARK: - Properties
     var currentGame: GameScene!
+    var player1Score = 0
+    var player2Score = 0
     
     @IBOutlet weak var angleSlider: UISlider!
     @IBOutlet weak var angleLabel: UILabel!
@@ -22,6 +24,9 @@ class GameViewController: UIViewController {
     @IBOutlet weak var playerNumber: UILabel!
     @IBOutlet weak var angleTitle: UILabel!
     @IBOutlet weak var velocityTitle: UILabel!
+    @IBOutlet weak var player1ScoreLabel: UILabel!
+    @IBOutlet weak var player2ScoreLabel: UILabel!
+    @IBOutlet weak var windLabel: UILabel!
     
     
     // MARK: - Methods
@@ -41,11 +46,15 @@ class GameViewController: UIViewController {
         velocitySlider.isHidden = true
         velocityLabel.isHidden = true
         velocityTitle.isHidden = true
-        
-        
         launchButton.isHidden = true
         
         currentGame.launch(angle: Int(angleSlider.value), velocity: Int(velocitySlider.value))
+    }
+    
+    func activateWind() {
+        let windX = Double.random(in: 1...2)
+        let wind = CGVector(dx: windX, dy: 0)
+        windLabel.text = "Wind: \(wind.dx)"
     }
     
     func activatePlayer(number: Int) {
@@ -64,7 +73,6 @@ class GameViewController: UIViewController {
         velocityTitle.isHidden = false
         
         launchButton.isHidden = false
-        
     }
     
     // MARK: - Overrides

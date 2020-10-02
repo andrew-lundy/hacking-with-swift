@@ -27,6 +27,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var banana: SKSpriteNode!
     var currentPlayer = 1
     
+    
     weak var viewController: GameViewController!
 
     // MARK: - Methods
@@ -172,6 +173,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         backgroundColor = UIColor(hue: 0.669, saturation: 0.99, brightness: 0.67, alpha: 1)
         physicsWorld.contactDelegate = self
         
+        let windX = Double.random(in: 1...2)
+        physicsWorld.gravity = CGVector(dx: windX, dy: 0)
+        
+        viewController.activateWind()
+        
         createBuildings()
         createPlayers()
     }
@@ -207,6 +213,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     // MARK: - Extension Methods
     func didBegin(_ contact: SKPhysicsContact) {
+        
         let firstBody: SKPhysicsBody
         let secondBody: SKPhysicsBody
         
@@ -226,11 +233,31 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         
         if firstNode.name == "banana" && secondNode.name == "player1" {
+            viewController.player2Score += 1
+            viewController.player2ScoreLabel.text = "Player 2 Score: \(viewController.player2Score)"
             destroy(player: player1)
+            
+            if viewController.player2Score == 3 {
+                let gameOverScene = GameOverScene()
+                
+                let transition = SKTransition.moveIn(with: .down, duration: 1)
+                self.view?.presentScene(gameOverScene, transition: transition)
+                
+            }
         }
         
+        
         if firstNode.name == "banana" && secondNode.name == "player2" {
+            viewController.player1Score += 1
+            viewController.player1ScoreLabel.text = "Player 1 Score: \(viewController.player1Score)"
             destroy(player: player2)
+            
+            if viewController.player1Score == 3 {
+                let gameOverScene = SKScene(fileNamed: "GameOverScene")!
+                
+                let transition = SKTransition.moveIn(with: .down, duration: 1)
+                self.view?.presentScene(gameOverScene, transition: transition)
+            }
         }
         
         
