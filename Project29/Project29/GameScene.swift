@@ -173,10 +173,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         backgroundColor = UIColor(hue: 0.669, saturation: 0.99, brightness: 0.67, alpha: 1)
         physicsWorld.contactDelegate = self
         
-        let windX = Double.random(in: 1...2)
-        physicsWorld.gravity = CGVector(dx: windX, dy: 0)
+        DispatchQueue.main.async {
+            let windX = Double.random(in: 1...2)
+            let wind = CGVector(dx: windX, dy: 0)
+            self.viewController.windLabel.text = "Wind: \(wind.dx.rounded()) MPH"
+        }
         
-        viewController.activateWind()
         
         createBuildings()
         createPlayers()
