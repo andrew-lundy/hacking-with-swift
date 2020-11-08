@@ -18,7 +18,7 @@ class ViewController: UIViewController, WKNavigationDelegate, UITextFieldDelegat
     
     // MARK: - Methods
     func setDefaultTitle() {
-        title = "Multibrowser"
+        title = "Tap the add button to add a web view"
     }
     
     func selectWebView(_ webView: WKWebView) {
@@ -60,11 +60,13 @@ class ViewController: UIViewController, WKNavigationDelegate, UITextFieldDelegat
                 
                 if stackView.arrangedSubviews.count == 0 {
                     setDefaultTitle()
+                    addressBar.text = ""
                 } else {
                     var currentIndex = Int(index)
                     
                     if currentIndex == stackView.arrangedSubviews.count {
                         currentIndex = stackView.arrangedSubviews.count - 1
+                        
                     }
                     
                     if let newSelectedWebView = stackView.arrangedSubviews[currentIndex] as? WKWebView {
@@ -108,7 +110,7 @@ class ViewController: UIViewController, WKNavigationDelegate, UITextFieldDelegat
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if let webView = activeWebView, let address = addressBar.text {
-            if let url = URL(string: address) {
+            if let url = URL(string: "https://\(address)") {
                 webView.load(URLRequest(url: url))
             }
         }
