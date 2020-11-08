@@ -110,7 +110,7 @@ class ViewController: UIViewController, WKNavigationDelegate, UITextFieldDelegat
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if let webView = activeWebView, let address = addressBar.text {
-            if let url = URL(string: "https://\(address)") {
+            if let url = URL(string: "https://\(address)") { 
                 webView.load(URLRequest(url: url))
             }
         }
