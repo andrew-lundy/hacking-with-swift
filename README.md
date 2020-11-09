@@ -114,4 +114,12 @@ You can find the projects on the Hacking with Swift website. https://www.hacking
   ### * Use `LocalAuthentication` and the iOS Keychain to create a private text editor.
   * Introduced to the `LocalAuthentication` framework and how to check for and use biometrics.
   * Used the `Keychain Wrapper` framework to write and read data to and from the iOS Keychain. The framework can be found here: https://github.com/jrendel/SwiftKeychainWrapper.
+  
+## Project32:
+  ### * Add your app's content to iOS Spotlight and take advantage of Safari integration. 
+   * Introduced to `CoreSpotlight` and how to index information to make it available to the user via Spotlight.
+   * Learned how to deindex the information that was indexed for Spotlight use.
+   * Applied automatic resizing on `UITableViewCell` through the `numberOfLines` property, `NSAttributedString` and `Dynamic Type`.
+   * Used `SFSafariViewController` to view the web page that corresponds with the project information listed in the `UITableView`.
+   
    
