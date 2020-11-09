@@ -1,5 +1,5 @@
 # hacking-with-swift
-My work on some of the projects from the Hacking with Swift Tutorials (28/39). 
+My work on some of the projects from the Hacking with Swift Tutorials (32/39). 
 
 
 28 different projects from the Hacking with Swift website. https://www.hackingwithswift.com/read/
