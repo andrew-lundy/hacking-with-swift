@@ -2,7 +2,7 @@
 My work on some of the projects from the Hacking with Swift Tutorials (32/39). 
 
 
-28 different projects from the Hacking with Swift website. https://www.hackingwithswift.com/read/
+You can find the projects on the Hacking with Swift website. https://www.hackingwithswift.com/read/
 
 
 # The main concepts covered and learned in each project:
