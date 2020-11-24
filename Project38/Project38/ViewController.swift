@@ -12,6 +12,7 @@ import CoreData
 class ViewController: UITableViewController {
 
     var container: NSPersistentContainer!
+    var commitPredicate: NSPredicate?
     var commits = [Commit]()
     
     override func viewDidLoad() {
@@ -28,6 +29,8 @@ class ViewController: UITableViewController {
         
         performSelector(inBackground: #selector(fetchCommits), with: nil)
         loadSavedData()
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Filter", style: .plain, target: self, action: #selector(changeFilter))
+
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -43,9 +46,16 @@ class ViewController: UITableViewController {
 
         let commit = commits[indexPath.row]
         cell.textLabel!.text = commit.message
-        cell.detailTextLabel!.text = commit.date.description
+        cell.detailTextLabel!.text = "By \(commit.author.name) on \(commit.date.description)"
 
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let vc = storyboard?.instantiateViewController(identifier: "Detail") as? DetailViewController {
+            vc.detailItem = commits[indexPath.row]
+            navigationController?.pushViewController(vc, animated: true)
+        }
     }
     
     func configure(commit: Commit, usingJSON json: JSON) {
@@ -56,6 +66,30 @@ class ViewController: UITableViewController {
         let formatter = ISO8601DateFormatter()
         commit.date = formatter.date(from: json["commit"]["committer"]["date"].stringValue) ?? Date()
         print("COMMIT: \(commit)")
+        
+        var commitAuthor: Author!
+
+        // see if this author exists already
+        let authorRequest = Author.createFetchRequest()
+        authorRequest.predicate = NSPredicate(format: "name == %@", json["commit"]["committer"]["name"].stringValue)
+
+        if let authors = try? container.viewContext.fetch(authorRequest) {
+            if authors.count > 0 {
+                // we have this author already
+                commitAuthor = authors[0]
+            }
+        }
+
+        if commitAuthor == nil {
+            // we didn't find a saved author - create a new one!
+            let author = Author(context: container.viewContext)
+            author.name = json["commit"]["committer"]["name"].stringValue
+            author.email = json["commit"]["committer"]["email"].stringValue
+            commitAuthor = author
+        }
+
+        // use the author, either saved or new
+        commit.author = commitAuthor
     }
     
     func saveContext() {
@@ -72,6 +106,8 @@ class ViewController: UITableViewController {
         let request = Commit.createFetchRequest()
         let sort = NSSortDescriptor(key: "date", ascending: false)
         request.sortDescriptors = [sort]
+        request.predicate = commitPredicate
+
         
         do {
             commits = try container.viewContext.fetch(request)
@@ -100,6 +136,39 @@ class ViewController: UITableViewController {
             }
             
         }
+    }
+    
+    @objc func changeFilter() {
+        let ac = UIAlertController(title: "Filter commits…", message: nil, preferredStyle: .actionSheet)
+
+        ac.addAction(UIAlertAction(title: "Show only fixes", style: .default) { [unowned self] _ in
+            self.commitPredicate = NSPredicate(format: "message CONTAINS[c] 'fix'")
+            self.loadSavedData()
+        })
+        
+        ac.addAction(UIAlertAction(title: "Ignore Pull Requests", style: .default) { [unowned self] _ in
+            self.commitPredicate = NSPredicate(format: "NOT message BEGINSWITH 'Merge pull request'")
+            self.loadSavedData()
+        })
+        
+        ac.addAction(UIAlertAction(title: "Show only recent", style: .default) { [unowned self] _ in
+            let twelveHoursAgo = Date().addingTimeInterval(-43200)
+            self.commitPredicate = NSPredicate(format: "date > %@", twelveHoursAgo as NSDate)
+            self.loadSavedData()
+        })
+        
+        ac.addAction(UIAlertAction(title: "Show all commits", style: .default) { [unowned self] _ in
+            self.commitPredicate = nil
+            self.loadSavedData()
+        })
+
+        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        present(ac, animated: true)
+        
+        ac.addAction(UIAlertAction(title: "Show only Durian commits", style: .default, handler: { [unowned self] _ in
+            self.commitPredicate = NSPredicate(format: "author.name == 'Joe Groff'")
+            self.loadSavedData()
+        }))
     }
 
 

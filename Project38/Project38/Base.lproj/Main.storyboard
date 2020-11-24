@@ -61,8 +61,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8JL-SF-FEq">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8JL-SF-FEq">
+                                <rect key="frame" x="25" y="44" width="364" height="818"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -71,8 +71,8 @@
                         <viewLayoutGuide key="safeArea" id="9db-Dc-JuJ"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="9db-Dc-JuJ" firstAttribute="trailing" secondItem="8JL-SF-FEq" secondAttribute="trailing" id="DyF-tB-BlO"/>
-                            <constraint firstItem="8JL-SF-FEq" firstAttribute="leading" secondItem="9db-Dc-JuJ" secondAttribute="leading" id="KP2-0k-0Vj"/>
+                            <constraint firstItem="9db-Dc-JuJ" firstAttribute="trailing" secondItem="8JL-SF-FEq" secondAttribute="trailing" constant="25" id="DyF-tB-BlO"/>
+                            <constraint firstItem="8JL-SF-FEq" firstAttribute="leading" secondItem="9db-Dc-JuJ" secondAttribute="leading" constant="25" id="KP2-0k-0Vj"/>
                             <constraint firstItem="9db-Dc-JuJ" firstAttribute="bottom" secondItem="8JL-SF-FEq" secondAttribute="bottom" id="ZBT-nv-Q4i"/>
                             <constraint firstItem="8JL-SF-FEq" firstAttribute="top" secondItem="9db-Dc-JuJ" secondAttribute="top" id="xYy-z8-Q09"/>
                         </constraints>
