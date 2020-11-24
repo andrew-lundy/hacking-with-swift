@@ -169,10 +169,7 @@ class ViewController: UITableViewController, NSFetchedResultsControllerDelegate 
         
         if let data = try? String(contentsOf: URL(string: "https://api.github.com/repos/apple/swift/commits?per_page=100&since=\(newestCommitDate)")!) {
             let jsonCommits = JSON(parseJSON: data)
-            
             let jsonCommitArray = jsonCommits.arrayValue
-            
-            print("Received \(jsonCommitArray.count) new commits.")
             
             DispatchQueue.main.async { [unowned self] in
                 for jsonCommit in jsonCommitArray {
