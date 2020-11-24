@@ -58,6 +58,17 @@ class ViewController: UITableViewController {
         }
     }
     
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let commit = commits[indexPath.row]
+            container.viewContext.delete(commit)
+            commits.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            
+            saveContext()
+        }
+    }
+    
     func configure(commit: Commit, usingJSON json: JSON) {
         commit.sha = json["sha"].stringValue
         commit.message = json["commit"]["message"].stringValue
@@ -65,7 +76,6 @@ class ViewController: UITableViewController {
         
         let formatter = ISO8601DateFormatter()
         commit.date = formatter.date(from: json["commit"]["committer"]["date"].stringValue) ?? Date()
-        print("COMMIT: \(commit)")
         
         var commitAuthor: Author!
 
@@ -118,8 +128,28 @@ class ViewController: UITableViewController {
         }
     }
     
+    func getNewestCommitDate() -> String {
+        let formatter = ISO8601DateFormatter()
+        
+        let newest = Commit.createFetchRequest()
+        let sort = NSSortDescriptor(key: "date", ascending: false)
+        newest.sortDescriptors = [sort]
+        newest.fetchLimit = 1
+        
+        if let commits = try? container.viewContext.fetch(newest) {
+            if commits.count > 0 {
+                print("return newest commit")
+                return formatter.string(from: commits[0].date.addingTimeInterval(1))
+            }
+        }
+        
+        return formatter.string(from: Date(timeIntervalSince1970: 0))
+    }
+    
     @objc func fetchCommits() {
-        if let data = try? String(contentsOf: URL(string: "https://api.github.com/repos/apple/swift/commits?per_page=100")!) {
+        let newestCommitDate = getNewestCommitDate()
+        
+        if let data = try? String(contentsOf: URL(string: "https://api.github.com/repos/apple/swift/commits?per_page=100&since=\(newestCommitDate)")!) {
             let jsonCommits = JSON(parseJSON: data)
             
             let jsonCommitArray = jsonCommits.arrayValue
