@@ -8,8 +8,11 @@
 import XCTest
 
 class Project39UITests: XCTestCase {
-
+    var app: XCUIApplication!
+    
     override func setUpWithError() throws {
+        app = XCUIApplication()
+        app.launch()
         // Put setup code here. This method is called before the invocation of each test method in the class.
 
         // In UI tests it is usually best to stop immediately when a failure occurs.
@@ -23,9 +26,6 @@ class Project39UITests: XCTestCase {
     }
 
     func testUserFilteringByString() {
-        
-        let app = XCUIApplication()
-        app.launch()
         app.buttons["Search"].tap()
         
         let filterAlert = app.alerts
@@ -39,8 +39,6 @@ class Project39UITests: XCTestCase {
     }
     
     func testUserFilterBy1000() {
-        let app = XCUIApplication()
-        app.launch()
         app.buttons["Search"].tap()
         
         let filterAlert = app.alerts
@@ -52,8 +50,6 @@ class Project39UITests: XCTestCase {
     }
     
     func testInitialStateIsCorrect() {
-        let app = XCUIApplication()
-        app.launch()
         let table = XCUIApplication().tables
         XCTAssertEqual(table.cells.count, 7, "There should be 7 rows initially")
         
